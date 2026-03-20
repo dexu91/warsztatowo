@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+<meta charset="UTF-8">
+<title>Speed Gaz – warsztat samochodowy Oława</title>
+<meta name="description" content="Warsztat samochodowy w Oławie. Naprawy mechaniczne, montaż LPG, diagnostyka.">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="top">
+
+  <div class="left">  <img src="sterownik.png">
+  <img src="qbox.png">
+  <img src="wtrysk.png"></div>
+
+  <div class="center">
+    <img src="nazwa.png" class="logo">
+
+    <div class="telefony">
+      <a href="tel:607840962" class="tel">📞 607840962 (Paweł)</a>
+      <a href="tel:000000000" class="tel">📞 000000000 (Szczepan)</a>
+    </div>
+  </div>
+
+  <img src="auto.png" class="auto">
+
+</header>
+
+
+<nav>
+<a href="#uslugi">Usługi</a>
+<a href="#warsztat">Warsztat</a>
+<a href="zdjecia/index.html">Zdjęcia</a>
+<a href="#kontakt">Kontakt</a>
+</nav>
+
+<section class="oferta">
+
+<h2>Nasze usługi</h2>
+
+<div class="kafelki">
+
+  <div class="box">
+    <div class="klik">Montaż oraz serwis instalacji LPG
+    <span class="arrow">▼</span></div>
+    <div class="content">
+      AC STAG | KME | ABE KING | ZENIT | 4GAS | AGIS | LOVATO | LANDIRENZO | TARTARINI | OMVL | OPTIMA | LPG-TECH | LP GAZ | KING | SEC
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="klik">Diagnostyka komputerowa
+           <span class="arrow">▼</span></div>
+    <div class="content">
+      LAUNCH | X-TOOL | F-CAR | DELPHI
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="klik">Naprawy silnika
+           <span class="arrow">▼</span></div>
+    <div class="content">
+      Wymiana termostatu | Naprawa/wymiana turbosprężarki | Wymiana uszczelki pod głowicą | Naprawa/wymiana alternatora | Wymiana świec zapłonowych | Wymiana cewek zapłonowych | Czyszczenie przepustnicy
+    </div>
+  </div>
+
+  <div class="box">
+<div class="klik">Wymiana rozrządu
+       <span class="arrow">▼</span></div>
+    <div class="content">
+      FEBI | SKF | VAICO | SNR | BLUEPRINT | DAYCO | FAI AUTOPARTS | iwis Motorsysteme | Continental CTAM | BOSCH | GATES
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="klik">Wymiana sprzęgła
+           <span class="arrow">▼</span></div>
+    <div class="content">
+      SACHS | VALEO | BLUEPRINT | RYMEC | LUK | JAPAN PARTS
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="klik">Naprawy zawieszenia
+           <span class="arrow">▼</span></div>
+    <div class="content">
+      Wymiana amortyzatorów | Wymiana wahaczy | Wymiana tulei | Wymiana przegubów | Wymiana zwrotnic | Wymiana łożysk | Wymiana stabilizatorów | Wymiana drążków kierowniczych
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+<section id="warsztat">
+
+<h2>Dlaczego warto nas wybrać</h2>
+
+<p>
+Warsztat SPEED GAZ w Oławie oferuje <strong>profesjonalny montaż instalacji LPG</strong> a także naprawy samochodów.
+ Stawiamy na rzetelną diagnostykę i naprawę zamiast <strong>niepotrzebnej</strong> wymiany części.
+</p>
+
+</section>
+
+<section class="kontakt" id="kontakt">
+
+<h2>Kontakt</h2>
+
+<p><strong>Adres:</strong> ul. 3 Maja 26, Oława</p>
+<p><strong>Telefon:</strong> <a href="tel:607840962">607840962</a></p>
+<p><strong>Godziny otwarcia:</strong> Pon-Pt 8:00-17:00</p>
+
+<div style="margin-top:20px;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d528.5989507119107!2d17.30704762858553!3d50.93381235484563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471027a4539f30d9%3A0xfcc0ebe25973152d!2sSPEED%20GAZ!5e0!3m2!1spl!2spl!4v1773742311011!5m2!1spl!2spl"   
+  width="100%" 
+  height="300"
+  style="border:0; border-radius:10px;"
+  loading="lazy"
+  ></iframe>
+  <p>
+<a href="https://maps.google.com/?q=SPEED+GAZ+Oława" target="_blank">
+📍 Otwórz w Google Maps
+</a>
+</p>
+</div>
+
+
+
+</section>
+
+<footer>
+<p>© Speed Gaz Oława</p>
+<p>Stronę stworzył: Dexu</p>
+</footer>
+
+<script>
+document.querySelectorAll(".klik").forEach(item => {
+  item.addEventListener("click", () => {
+    const content = item.nextElementSibling;
+    const arrow = item.querySelector(".arrow");
+
+    if(content.style.maxHeight){
+      content.style.maxHeight = null;
+      arrow.style.transform = "rotate(0deg)";
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      arrow.style.transform = "rotate(180deg)";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
+
