@@ -384,86 +384,239 @@ h2::after{
   background-size:200% 100%;
   animation:glowLine 3s ease-in-out infinite;
 }
- 
-@keyframes glowLine{
-  0%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
+
+/* Kontener galerii */
+.gallery-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Kafelki miniaturek */
+.thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.thumb {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid #333;
+    transition: transform 0.3s, border-color 0.3s, filter 0.3s;
+    filter: grayscale(40%);
+}
+
+.thumb:hover {
+    transform: scale(1.1);
+    border-color: #ff2a2a;
+    filter: grayscale(0%);
+    z-index: 5;
+}
+
+.active-thumb {
+    border-color: #ff2a2a;
+    filter: grayscale(0%);
+    transform: scale(1.05); /* Lekkie powiększenie aktywnej */
+}
+
+/* Widok główny */
+.main-view {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 12px;
+    padding: 0; /* Usuwamy padding, żeby strefy dotykały krawędzi */
+    border: 1px solid #333;
+    height: 600px; /* Stała wysokość, o której rozmawialiśmy */
+    overflow: hidden;
+}
+
+.main-view img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* Styl dla szerokich stref kliknięcia */
+.nav-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15%; /* Szerokość strefy (możesz zwiększyć do 20% jeśli chcesz) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05); /* Lekkie wyszarzenie tła */
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+    user-select: none;
+}
+
+.left-zone { left: 0; border-radius: 12px 0 0 12px; }
+.right-zone { right: 0; border-radius: 0 12px 12px 0; }
+
+/* Efekt po najechaniu na strefę */
+.nav-zone:hover {
+    background: rgba(255, 255, 255, 0.15); /* Mocniejsze wyszarzenie przy hover */
+}
+
+/* Styl samej strzałki wewnątrz strefy */
+.arrow {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+.nav-zone:hover .arrow {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Przyciski prawo/lewo */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Strzałki na wierzchu */
+    pointer-events: none; /* KLUCZOWE: kliknięcie "przelatuje" przez strzałkę do zdjęcia */
+    opacity: 0.8;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.prev:hover, .next:hover {
+    background: #ff2a2a;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Na komputerach możemy pokazać strzałki jaśniej po najechaniu na całą galerię */
+.main-view:hover .prev, 
+.main-view:hover .next {
+    opacity: 1;
+}
+
+/* Animacja linii pod nagłówkami */
+@keyframes glowLine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 
-
-  @media (max-width:900px){
-  .uslugi{
-    grid-template-columns:1fr;
+/* --- KOMPLEKSOWA SEKCJA RESPONSYWNA DLA CAŁEJ WITRYNY --- */
+@media (max-width: 900px) {
+  
+  /* 1. OGÓLNE I HEADER (Strona Główna + Usługi) */
+  header {
+    padding: 20px 10px;
   }
 
-  header{
-    padding:20px;
+  .left, .auto {
+    display: none !important; /* Ukrywamy ozdobniki na mobile, by nie śmieciły */
   }
 
-  .left{
-    display:none;
-  }
-
-  .auto{
-    display:none;
-  }
-
-  .logo{
-    margin:auto;
-    width: 90%;
+  .logo {
+    margin: 0 auto 15px auto;
+    width: 85%;
     height: auto;
+    display: block;
   }
 
-  .kafelki{
-    grid-template-columns:1fr;
+  .center {
+    position: static;
+    transform: none;
+    width: 100%;
   }
 
-  .center{
-    position:static;
-    transform:none;
-    width:100%;
+  /* 2. TELEFONY I TAGLINE */
+  .telefony {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
-  .tel{
-    font-size:18px;
-    background:#8b0000;
-    padding:10px;
-    border-radius:8px;
-    width:90%;
-    text-align:center;
+  .tel {
+    font-size: 16px;
+    background: #8b0000;
+    padding: 12px;
+    border-radius: 8px;
+    width: 95%;
+    text-align: center;
+    box-sizing: border-box;
   }
 
-  nav{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    padding:15px;
+  .tagline {
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 10px;
+    margin: 0;
   }
 
-  nav a{
-    display:block;
-    background:#4b4949;
-    padding:12px;
-    border-radius:10px;
-    text-align:center;
-    font-size:16px;
-    font-weight:bold;
+  /* 3. NAWIGACJA (Układ 2x2) */
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
   }
 
-  nav a:hover{
-    background:#7a0202;
-    transform:scale(1.03);
+  nav a {
+    display: block;
+    background: #333;
+    padding: 15px 5px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    text-decoration: none;
   }
 
-footer a{
-  -webkit-tap-highlight-color: transparent;
-}
+  /* 4. STRONA GŁÓWNA I USŁUGI (Układ treści) */
+  section {
+    padding: 30px 15px;
+    margin: 20px 10px;
+  }
 
-  .tagline{
-    font-size:14px;
-    padding:0 10px;
+  .kafelki, .uslugi {
+    grid-template-columns: 1fr !important; /* Wszystko w jednej kolumnie */
+    gap: 15px;
+  }
+
+  /* 5. PODSTRONA ZDJĘCIA (Galeria) */
+  .thumbnails {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+  }
+  
+  .thumb { 
+    height: 90px; 
+  }
+  
+  .nav-zone { width: 25%; }
+  .main-view { height: 350px; }
+
+
+  .prev, .next {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  /* 6. MAPA I STOPKA */
+  iframe {
+    height: 300px; /* Mniejsza mapa na mobile */
   }
 }
 

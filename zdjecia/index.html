@@ -12,33 +12,118 @@
 
 <body>
 
-<header class="top">
 
-  <div class="left">
-    <img src="sterownik.png">
-    <img src="qbox.png">
-    <img src="wtrysk.png">
-  </div>
 
-  <img src="nazwa.png" class="logo">
-
-  <img src="auto.png" class="auto">
-
+<header class="top-mini">
+  <a href="../index.html">
+    <img src="../nazwa.png" class="logo">
+  </a>
+    
 </header>
 
+<header class="top">
+
+    <div class="telefony">
+      <a href="tel:607840962" class="tel">📞Kliknij żeby zadzwonić: 607840962 (Paweł)</a>
+      <a href="tel:570385932" class="tel">📞Kliknij żeby zadzwonić: 570385932 (Szczepan)</a>
+    </div>
+  </div>
+
+</header>
+<p class="tagline">
+Profesjonalny montaż i serwis instalacji LPG oraz naprawy samochodowe, Speed Gaz – Oława i okolice
+</p>
+
 <nav>
-<a href="#uslugi">Usługi</a>
-<a href="#warsztat">Warsztat</a>
+<a href="../uslugi/">Usługi</a>
+<a href="../#warsztat">Warsztat</a>
 <a href="#zdjecia">Zdjęcia</a>
-<a href="#kontakt">Kontakt</a>
+<a href="../#kontakt">Kontakt</a>
 </nav>
 <header>
     <h2>Zdjęcia</h2>
 </header>
 
+<section id="zdjecia">
+    <header>
+        <h2>Galeria Warsztatu</h2>
+    </header>
+
+<div class="gallery-container">
+    <div id="thumbnails-container" class="thumbnails"></div>
+
+    <div class="main-view">
+    <div class="nav-zone left-zone" onclick="changeSlide(-1)">
+        <span class="arrow">&#10094;</span>
+    </div>
+
+    <img id="expandedImg" src="" onclick="/* usunięto stary onclick ze zdjęcia, strefy go zastępują */">
+
+    <div class="nav-zone right-zone" onclick="changeSlide(1)">
+        <span class="arrow">&#10095;</span>
+    </div>
+</div>
+</div>
+</section>
+
+<script>
+    const photoList = ["auto.png", "merc.webp", "merc2.webp", "sprzeglo.webp", "plac.webp"];
+    const folderPath = ""; 
+    let currentIndex = 0;
+    
+    const thumbContainer = document.getElementById("thumbnails-container");
+    const expandedImg = document.getElementById("expandedImg");
+
+    function initGallery() {
+        if (!thumbContainer) return;
+        thumbContainer.innerHTML = ""; 
+        photoList.forEach((fileName, index) => {
+            const img = document.createElement("img");
+            img.src = folderPath + fileName;
+            img.className = "thumb";
+            if (index === 0) img.classList.add("active-thumb");
+            img.onclick = function() { currentSlide(index); };
+            thumbContainer.appendChild(img);
+        });
+        updateGallery(0);
+        setupSwipe(); 
+    }
+
+    function updateGallery(index) {
+        currentIndex = index;
+        if (currentIndex >= photoList.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = photoList.length - 1;
+        expandedImg.src = folderPath + photoList[currentIndex];
+        
+        const allThumbs = document.querySelectorAll('.thumb');
+        allThumbs.forEach(img => img.classList.remove('active-thumb'));
+        if(allThumbs[currentIndex]) allThumbs[currentIndex].classList.add('active-thumb');
+    }
+
+    function currentSlide(n) { updateGallery(n); }
+    function changeSlide(n) { updateGallery(currentIndex + n); }
+
+
+    // Obsługa dotyku (Swipe) zostaje bez zmian
+    let touchstartX = 0;
+    let touchendX = 0;
+    function setupSwipe() {
+        expandedImg.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});
+        expandedImg.addEventListener('touchend', e => { touchendX = e.changedTouches[0].screenX; handleGesture(); }, {passive: true});
+    }
+    function handleGesture() {
+        if (touchendX < touchstartX - 50) changeSlide(1);
+        if (touchendX > touchstartX + 50) changeSlide(-1);
+    }
+
+    window.onload = initGallery;
+</script>
+
+
+
 <footer>
-<p>© Speed Gaz Oława</p>
-<p>Stronę stworzył: Dexu</p>
+<p><a href="../index.html">© Speed Gaz Oława</a></p>
+<p>Stronę stworzył: <a href="../wiz/index.html" target="_blank">Dexu</a></p>
 </footer>
 
 </body>
