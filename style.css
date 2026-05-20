@@ -390,25 +390,37 @@ h2::after{
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Kafelki miniaturek */
+/* Kafelki miniaturek (wersja przesuwna slider) */
 .thumbnails {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 15px;
     margin-bottom: 30px;
+    padding-bottom: 15px; /* Dodane miejsce na pasek przewijania pod zdjęciami */
+    
+    /* Płynne przewijanie na telefonach */
+    -webkit-overflow-scrolling: touch; 
+    scroll-behavior: smooth;
+    
+    /* Pasek w Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #ff2a2a #1f1f1f; 
 }
 
 .thumb {
-    width: 100%;
+    flex: 0 0 auto; /* BARDZO WAŻNE: Zapobiega ściskaniu zdjęć na siłę */
+    width: 150px; /* Sztywna szerokość zamiast 100% z Grida */
     height: 120px;
     object-fit: cover;
     cursor: pointer;
     border-radius: 8px;
     border: 2px solid #333;
     transition: transform 0.3s, border-color 0.3s, filter 0.3s;
-    filter: grayscale(40%);
+    filter: grayscale(40%); /* Twój stary filtr zachowany */
 }
 
 .thumb:hover {
@@ -421,7 +433,20 @@ h2::after{
 .active-thumb {
     border-color: #ff2a2a;
     filter: grayscale(0%);
-    transform: scale(1.05); /* Lekkie powiększenie aktywnej */
+    transform: scale(1.05); /* Twoje lekkie powiększenie aktywnej */
+}
+
+/* Ładny pasek przewijania dla Chrome/Edge/Safari/Opera */
+.thumbnails::-webkit-scrollbar {
+    height: 8px;
+}
+.thumbnails::-webkit-scrollbar-track {
+    background: #161313;
+    border-radius: 10px;
+}
+.thumbnails::-webkit-scrollbar-thumb {
+    background: #ff2a2a;
+    border-radius: 10px;
 }
 
 /* Widok główny */
@@ -566,21 +591,29 @@ h2::after{
   }
 
   /* 3. NAWIGACJA (Układ 2x2) */
-  nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 10px;
+nav {
+    display: grid !important; /* Wymuszamy siatkę */
+    grid-template-columns: 1fr 1fr !important; /* Dwa rzędy po dwa kafelki */
+    gap: 10px !important;
+    padding: 15px !important;
+    background: transparent; /* Usuwamy tło paska, jeśli było */
   }
 
-  nav a {
-    display: block;
-    background: #333;
-    padding: 15px 5px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 15px;
-    text-decoration: none;
+nav a {
+    display: block !important;
+    background: #333 !important; /* Ciemne tło kafelka */
+    color: white !important;
+    padding: 20px 10px !important; /* Duży padding dla "grubego palucha" */
+    border-radius: 10px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border: 1px solid #444 !important;
+  }
+  
+  nav a:active {
+    background: #ff2a2a !important; /* Kolor przy kliknięciu */
   }
 
   /* 4. STRONA GŁÓWNA I USŁUGI (Układ treści) */
@@ -594,14 +627,14 @@ h2::after{
     gap: 15px;
   }
 
-  /* 5. PODSTRONA ZDJĘCIA (Galeria) */
+/* 5. PODSTRONA ZDJĘCIA (Galeria) */
   .thumbnails {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 8px;
+    gap: 8px; /* Zostawiamy tylko gap, wywalamy grid-template-columns */
   }
   
   .thumb { 
     height: 90px; 
+    width: 110px; /* Dodajemy sztywną szerokość na telefony, żeby były mniejsze */
   }
   
   .nav-zone { width: 25%; }
